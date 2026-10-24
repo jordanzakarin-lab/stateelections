@@ -80,6 +80,8 @@ tr:last-child td{border-bottom:0}
 th{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--panel)}
 td.num,th.num{text-align:right}
 .dist{font-weight:600}
+a.dist{color:inherit;text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px}
+a.dist:hover{text-decoration-color:currentColor}
 .sn{display:block;font-size:12px;color:var(--muted);font-weight:400}
 .note{display:block;font-size:12px;color:var(--muted);white-space:normal;max-width:220px}
 .res{font-weight:600;font-size:13px;min-width:120px}
@@ -240,12 +242,19 @@ a{color:inherit}
     const v = c.votes!=null&&c.votes!=='' ? `${fmt(c.votes)}${c.pct!=null&&c.pct!==''?' · '+c.pct+'%':''}` : '';
     return `<span class="${win?'win':''}">${esc(c.name)}${isInc?' <span class="vv" style="display:inline">(inc.)</span>':''}</span>${v?`<span class="vv">${v}</span>`:''}`;
   }
+  // Ballotpedia page for the district, e.g. Arizona's_1st_Congressional_District, Texas'_34th_..., Alaska's_At-Large_...
+  function bpURL(b){
+    const n = parseInt(b.district,10), v = n%100, sfx = ['th','st','nd','rd'];
+    const ord = isNaN(n) ? 'At-Large' : n + (sfx[(v-20)%10] || sfx[v] || sfx[0]);
+    const poss = b.state + (/s$/.test(b.state) ? "'" : "'s");
+    return 'https://ballotpedia.org/' + (poss+'_'+ord+'_Congressional_District').replace(/ /g,'_');
+  }
   function row(b,x){
     const r = x.r || {};
     const mp=r.marginPts, m=(mp==null||mp==='')?'':(mp>0?`<span class="d">D+${Math.abs(mp).toFixed(1)}</span>`:mp<0?`<span class="r">R+${Math.abs(mp).toFixed(1)}</span>`:'Even');
     const mv = r.marginVotes!=null&&r.marginVotes!=='' ? `<span class="vv">${fmt(r.marginVotes)} votes</span>`:'';
     const inc = `<span class="pill ${b.held}">${b.held==='D'?'Democratic':'Republican'}</span>`;
-    return `<tr id="${b.id}"><td><span class="dist">${esc(b.id)}</span><span class="sn">${esc(b.state)}</span></td>
+    return `<tr id="${b.id}"><td><a class="dist" href="${esc(bpURL(b))}" target="_blank" rel="noopener" title="Ballotpedia: ${esc(b.state)} ${esc(b.district)}">${esc(b.id)}</a><span class="sn">${esc(b.state)}</span></td>
       <td>${inc}</td>
       ${resultCell(b,x)}
       <td>${cand(b.dem, r.dem, x.won==='D', b.incumbent===b.dem)}</td><td>${cand(b.rep, r.rep, x.won==='R', b.incumbent===b.rep)}</td>
