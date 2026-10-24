@@ -35,6 +35,10 @@ header{border-bottom:3px double var(--ink);padding-bottom:12px;display:flex;flex
 h1{font-family:var(--display);font-weight:900;font-size:clamp(28px,4.5vw,44px);line-height:1;margin:0;text-wrap:balance}
 .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
 .dateline{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;display:flex;gap:14px;flex-wrap:wrap}
+.xlink{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap;border:1px solid var(--rule);background:var(--panel);padding:10px 14px;text-decoration:none}
+.xlink b{font-family:var(--display);font-size:17px}
+.xlink span{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.xlink:hover b{text-decoration:underline}
 .live{display:inline-flex;align-items:center;gap:6px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--rep)}
 @media (prefers-reduced-motion:no-preference){.dot{animation:pulse 2s infinite}}
@@ -136,6 +140,8 @@ a{color:inherit}
       <span id="updated">Loading…</span>
     </div>
   </header>
+
+  <a class="xlink" href="congress/"><b>Battleground House races →</b><span>Live results for the 50 most competitive U.S. House seats</span></a>
 
   <div class="sample" id="sampleBanner" hidden>Sample numbers for layout preview only. These are not real results; live results replace them after polls close on Nov. 3.</div>
 
