@@ -99,6 +99,8 @@ td.num,th.num{text-align:right}
 .rbar .mid{width:2px;background:var(--ink);margin:0 -1px;position:relative;z-index:1}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;margin-left:6px;padding:1px 4px;border:1px solid currentColor;display:inline-block;line-height:1.25;vertical-align:1px}
 .tag.maybe{border-style:dashed}
+.pill{font:600 12px var(--body);padding:3px 8px;white-space:nowrap}
+.pill.D{background:var(--dem);color:var(--dem-ink)} .pill.R{background:var(--rep);color:var(--rep-ink)}
 .pd{font-family:var(--mono);font-size:11px;padding:0 4px;margin-left:2px}
 .pd.D{color:var(--dem)} .pd.R{color:var(--rep)}
 .vv{display:block;font-family:var(--mono);font-size:12px;color:var(--muted)}
@@ -240,9 +242,9 @@ a{color:inherit}
     const r = x.r || {};
     const mp=r.marginPts, m=(mp==null||mp==='')?'':(mp>0?`<span class="d">D+${Math.abs(mp).toFixed(1)}</span>`:mp<0?`<span class="r">R+${Math.abs(mp).toFixed(1)}</span>`:'Even');
     const mv = r.marginVotes!=null&&r.marginVotes!=='' ? `<span class="vv">${fmt(r.marginVotes)} votes</span>`:'';
-    const inc = b.incumbent ? `${esc(b.incumbent)}<span class="pd ${b.held}">${b.held}</span>` : `<span>Open</span><span class="pd ${b.held}">${b.held} seat</span>`;
+    const inc = `<span class="pill ${b.held}">${b.held==='D'?'Democratic':'Republican'}</span>`;
     return `<tr id="${b.id}"><td><span class="dist">${esc(b.id)}</span><span class="sn">${esc(b.state)}</span></td>
-      <td>${inc}${b.note?`<span class="note">${esc(b.note)}</span>`:''}</td>
+      <td>${inc}</td>
       ${resultCell(b,x)}
       <td>${cand(b.dem, r.dem, x.won==='D', b.incumbent===b.dem)}</td><td>${cand(b.rep, r.rep, x.won==='R', b.incumbent===b.rep)}</td>
       <td class="num">${m}${mv}</td><td class="num"><span class="vv">${esc(r.reporting||'')}</span>${r.source?`<a href="${esc(r.source)}" target="_blank" rel="noopener">Results</a>`:''}</td></tr>`;
@@ -262,7 +264,7 @@ a{color:inherit}
   function render(){
     const xs = BASE.races.map(b=>stateOf(b));
     const c = houseBar(xs); tally(xs,c);
-    const head = `<thead><tr><th>District</th><th>Incumbent</th><th>Result</th><th>Democrat</th><th>Republican</th><th class="num">Margin</th><th class="num">Reporting</th></tr></thead>`;
+    const head = `<thead><tr><th>District</th><th>Held by</th><th>Result</th><th>Democrat</th><th>Republican</th><th class="num">Margin</th><th class="num">Reporting</th></tr></thead>`;
     const html = GROUPS.map(([key,label])=>{
       const rows = BASE.races.map((b,i)=>[b,xs[i]]).filter(([b,x])=>b.rating===key && matches(b,x));
       if (!rows.length) return '';
