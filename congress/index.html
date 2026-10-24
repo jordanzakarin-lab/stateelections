@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Battleground Congressional Races 2026 · State Elections</title>
-<meta name="description" content="Live results for the 50 most competitive U.S. House races on the ballot Nov. 3, 2026.">
+<meta name="description" content="Live results for the 81 most competitive U.S. House races on the ballot Nov. 3, 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -119,7 +119,7 @@ a{color:inherit}
       <h1>Battleground Congressional Races 2026</h1>
     </div>
     <div class="dateline">
-      <span class="live"><span class="dot" aria-hidden="true"></span><span id="scope">50 competitive races</span></span>
+      <span class="live"><span class="dot" aria-hidden="true"></span><span id="scope">81 competitive races</span></span>
       <span id="updated">Loading…</span>
     </div>
   </header>
@@ -135,21 +135,23 @@ a{color:inherit}
   <section class="tally" id="tally" aria-label="Battleground summary"></section>
 
   <div class="legend" aria-label="Bar key">
-    <span><i style="background:var(--dem-soft)"></i>D seats rated safe or likely</span>
+    <span><i style="background:var(--dem-soft)"></i>D seats rated Solid</span>
     <span><i style="background:var(--dem)"></i>D won</span>
     <span><i style="background:repeating-linear-gradient(135deg,var(--dem) 0 3px,var(--dem-soft) 3px 6px)"></i>D leading, 60%+ counted</span>
     <span><i style="background:var(--none);border:1px solid var(--rule)"></i>Not yet called</span>
     <span><i style="background:repeating-linear-gradient(135deg,var(--rep) 0 3px,var(--rep-soft) 3px 6px)"></i>R leading, 60%+ counted</span>
     <span><i style="background:var(--rep)"></i>R won</span>
-    <span><i style="background:var(--rep-soft)"></i>R seats rated safe or likely</span>
+    <span><i style="background:var(--rep-soft)"></i>R seats rated Solid</span>
     <span><i style="background:var(--ink);width:2px"></i>218 for a majority</span>
   </div>
 
   <div class="filters" role="toolbar" aria-label="Filter races">
-    <button aria-pressed="true" data-f="all">All 50</button>
+    <button aria-pressed="true" data-f="all">All races</button>
     <button aria-pressed="false" data-f="Toss Up">Toss ups</button>
     <button aria-pressed="false" data-f="Lean D">Lean D</button>
     <button aria-pressed="false" data-f="Lean R">Lean R</button>
+    <button aria-pressed="false" data-f="Likely D">Likely D</button>
+    <button aria-pressed="false" data-f="Likely R">Likely R</button>
     <button aria-pressed="false" data-f="called">Called</button>
     <button aria-pressed="false" data-f="flip">Seats flipped</button>
     <input id="q" type="search" placeholder="State, district or candidate" aria-label="Search by state, district or candidate">
@@ -158,7 +160,7 @@ a{color:inherit}
   <div id="groups"><div class="empty">Loading races…</div></div>
 
   <footer>
-    <span>The House bar starts from the seats Cook rates Solid or Likely for each party, which are assumed, not counted; the 50 races here are added as they are called. Hatched segments are uncalled races where a party leads with at least 60% of the expected vote counted. They show where the count is heading and never count toward control.</span>
+    <span>The House bar starts from the seats Cook rates Solid for each party, which are assumed, not counted; the 81 races here are added as they are called. Hatched segments are uncalled races where a party leads with at least 60% of the expected vote counted. They show where the count is heading and never count toward control.</span>
     <span id="srcs"></span>
     <span>Results: official state results sites first, then AP and Decision Desk HQ calls as reported. Updates every 30 minutes on election night (8pm–3am ET), then hourly through Nov. 6. Alaska counts ranked-choice ballots after Election Day.</span>
   </footer>
@@ -170,7 +172,7 @@ a{color:inherit}
   const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const fmt = n => (n==null||n==='') ? '' : (typeof n==='number' ? n.toLocaleString('en-US') : esc(n));
   const pctIn = s => { const m = String(s==null?'':s).match(/(\d+(?:\.\d+)?)\s*%/); return m ? parseFloat(m[1]) : (typeof s==='number' ? s : -1); };
-  const GROUPS = [['Toss Up','Toss ups'],['Lean D','Lean Democratic'],['Lean R','Lean Republican']];
+  const GROUPS = [['Toss Up','Toss ups'],['Lean D','Lean Democratic'],['Lean R','Lean Republican'],['Likely D','Likely Democratic'],['Likely R','Likely Republican']];
   let BASE=null, DATA={races:[]}, RES=new Map(), filter='all', query='';
 
   // One state per race: called (won), leading (uncalled, 60%+ counted, someone ahead), or neither
@@ -191,7 +193,7 @@ a{color:inherit}
     const w = n => (100*n/t).toFixed(3)+'%';
     const seg=(cls,n,label)=> n>0?`<i class="${cls}" style="width:${w(n)}" title="${label}: ${n}"></i>`:'';
     $('#houseBar').innerHTML = `<div class="bar" role="img" aria-label="Democrats ${pD}, Republicans ${pR}, ${open} not called; ${h.majority} needed for a majority">
-      ${seg('dh',h.safeD,'D safe or likely (Cook)')}${seg('dw',c.wD,'D won')}${seg('dl',c.lD,'D leading, 60%+ counted')}${seg('iw',c.wI,'Other won')}<span class="gap"></span>${seg('rl',c.lR,'R leading, 60%+ counted')}${seg('rw',c.wR,'R won')}${seg('rh',h.safeR,'R safe or likely (Cook)')}
+      ${seg('dh',h.safeD,'D Solid (Cook)')}${seg('dw',c.wD,'D won')}${seg('dl',c.lD,'D leading, 60%+ counted')}${seg('iw',c.wI,'Other won')}<span class="gap"></span>${seg('rl',c.lR,'R leading, 60%+ counted')}${seg('rw',c.wR,'R won')}${seg('rh',h.safeR,'R Solid (Cook)')}
       <span class="maj" style="left:calc(${w(h.majority)} - 1px)" aria-hidden="true"></span></div>`;
     const lp = n => n ? ` <small>+${n} leading</small>` : '';
     const call = pD>=h.majority ? ' · Democrats reach 218' : pR>=h.majority ? ' · Republicans reach 218' : '';
@@ -253,7 +255,7 @@ a{color:inherit}
   function matches(b,x){
     if (filter==='called' && !x.won) return false;
     if (filter==='flip' && !x.flip) return false;
-    if (/^(Toss Up|Lean D|Lean R)$/.test(filter) && b.rating!==filter) return false;
+    if (/^(Toss Up|Lean D|Lean R|Likely D|Likely R)$/.test(filter) && b.rating!==filter) return false;
     const q = query.trim().toLowerCase();
     if (!q) return true;
     const id = b.id.toLowerCase();
@@ -297,7 +299,7 @@ a{color:inherit}
     try{ const res = await fetch('baseline.json', {cache:'no-store'}); BASE = await res.json(); }
     catch(err){ $('#groups').innerHTML = '<div class="empty">The race list couldn\'t load. Refresh the page to try again.</div>'; return; }
     $('#scope').textContent = `${BASE.races.length} competitive races`;
-    $('#srcs').textContent = `Races: ${BASE.ratingsSource} (Lean Democratic, Toss Up and Lean Republican). ${BASE.candidatesSource}.`;
+    $('#srcs').textContent = `Races: ${BASE.ratingsSource} (Likely, Lean and Toss Up). ${BASE.candidatesSource}.`;
     await loadData(); render();
     const h = decodeURIComponent(location.hash.slice(1)); if (h){ const el=document.getElementById(h.toUpperCase()); if (el) el.scrollIntoView(); }
     setInterval(async ()=>{ await loadData(); render(); }, 60000);
