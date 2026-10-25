@@ -2,7 +2,7 @@
  "title": "Battleground Congressional Races 2026",
  "asOf": "Oct 23, 2026",
  "ratingsSource": "Cook Political Report House race ratings, Oct. 23, 2026",
- "candidatesSource": "Nominees from Wikipedia's 2026 House elections candidate tables, checked Oct. 24, 2026",
+ "candidatesSource": "Nominees from Wikipedia's 2026 House and Senate elections candidate tables, checked Oct. 24, 2026",
  "house": {
   "total": 435,
   "majority": 218,
@@ -1064,5 +1064,138 @@
    "rep": "John McGuire",
    "note": ""
   }
- ]
+ ],
+ "senate": [
+  {
+   "id": "GA-SEN",
+   "st": "GA",
+   "state": "Georgia",
+   "rating": "Likely D",
+   "held": "D",
+   "incumbent": "Jon Ossoff",
+   "open": false,
+   "dem": "Jon Ossoff",
+   "rep": "Mike Collins",
+   "demParty": "D",
+   "special": false
+  },
+  {
+   "id": "NC-SEN",
+   "st": "NC",
+   "state": "North Carolina",
+   "rating": "Likely D",
+   "held": "R",
+   "incumbent": null,
+   "open": true,
+   "dem": "Roy Cooper",
+   "rep": "Michael Whatley",
+   "demParty": "D",
+   "special": false
+  },
+  {
+   "id": "ME-SEN",
+   "st": "ME",
+   "state": "Maine",
+   "rating": "Toss Up",
+   "held": "R",
+   "incumbent": "Susan Collins",
+   "open": false,
+   "dem": "Troy Jackson",
+   "rep": "Susan Collins",
+   "demParty": "D",
+   "special": false
+  },
+  {
+   "id": "MI-SEN",
+   "st": "MI",
+   "state": "Michigan",
+   "rating": "Toss Up",
+   "held": "D",
+   "incumbent": null,
+   "open": true,
+   "dem": "Abdul El-Sayed",
+   "rep": "Mike Rogers",
+   "demParty": "D",
+   "special": false
+  },
+  {
+   "id": "OH-SEN",
+   "st": "OH",
+   "state": "Ohio",
+   "rating": "Toss Up",
+   "held": "R",
+   "incumbent": "Jon Husted",
+   "open": false,
+   "dem": "Sherrod Brown",
+   "rep": "Jon Husted",
+   "demParty": "D",
+   "special": true
+  },
+  {
+   "id": "TX-SEN",
+   "st": "TX",
+   "state": "Texas",
+   "rating": "Toss Up",
+   "held": "R",
+   "incumbent": null,
+   "open": true,
+   "dem": "James Talarico",
+   "rep": "Ken Paxton",
+   "demParty": "D",
+   "special": false
+  },
+  {
+   "id": "KS-SEN",
+   "st": "KS",
+   "state": "Kansas",
+   "rating": "Toss Up",
+   "held": "R",
+   "incumbent": "Roger Marshall",
+   "open": false,
+   "dem": "Adam Hamilton",
+   "rep": "Roger Marshall",
+   "demParty": "D",
+   "special": false
+  },
+  {
+   "id": "IA-SEN",
+   "st": "IA",
+   "state": "Iowa",
+   "rating": "Toss Up",
+   "held": "R",
+   "incumbent": null,
+   "open": true,
+   "dem": "Josh Turek",
+   "rep": "Ashley Hinson",
+   "demParty": "D",
+   "special": false
+  },
+  {
+   "id": "NE-SEN",
+   "st": "NE",
+   "state": "Nebraska",
+   "rating": "Likely R",
+   "held": "R",
+   "incumbent": "Pete Ricketts",
+   "open": false,
+   "dem": "Dan Osborn",
+   "rep": "Pete Ricketts",
+   "demParty": "I",
+   "special": false
+  },
+  {
+   "id": "SC-SEN",
+   "st": "SC",
+   "state": "South Carolina",
+   "rating": "Lean R",
+   "held": "R",
+   "incumbent": "Darline Graham",
+   "open": false,
+   "dem": "Annie Andrews",
+   "rep": "Darline Graham",
+   "demParty": "D",
+   "special": false
+  }
+ ],
+ "senateRatingsSource": "Cook Political Report Senate race ratings, Oct. 20, 2026"
 }

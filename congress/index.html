@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Battleground Congressional Races 2026 · State Elections</title>
-<meta name="description" content="Live results for the 81 most competitive U.S. House races on the ballot Nov. 3, 2026.">
+<meta name="description" content="Live results for 10 key U.S. Senate races and the 81 most competitive U.S. House races on the ballot Nov. 3, 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -110,6 +110,10 @@ a.dist:hover{text-decoration-color:currentColor}
 .empty{padding:28px;color:var(--muted);text-align:center}
 footer{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--rule);padding-top:12px}
 a{color:inherit}
+.chamber-h{font-family:var(--display);font-weight:900;font-size:28px;margin:10px 0 0;border-top:3px double var(--ink);padding-top:14px}
+#senate .group h2{font-size:28px;font-weight:900;border-top:3px double var(--ink);padding-top:14px;margin-top:0}
+#senate:empty{display:none}
+.rt{display:block;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:2px}
 @media (max-width:640px){.nums span:nth-child(2){order:3;flex-basis:100%}}
 </style>
 </head>
@@ -121,12 +125,28 @@ a{color:inherit}
       <h1>Battleground Congressional Races 2026</h1>
     </div>
     <div class="dateline">
-      <span class="live"><span class="dot" aria-hidden="true"></span><span id="scope">81 competitive races</span></span>
+      <span class="live"><span class="dot" aria-hidden="true"></span><span id="scope">10 Senate · 81 House races</span></span>
       <span id="updated">Loading…</span>
     </div>
   </header>
 
   <div class="sample" id="sampleBanner" hidden>Sample numbers for layout preview only. These are not real results; live results replace them after polls close on Nov. 3.</div>
+
+  <div class="filters" role="toolbar" aria-label="Filter races">
+    <button aria-pressed="true" data-f="all">All races</button>
+    <button aria-pressed="false" data-f="Toss Up">Toss ups</button>
+    <button aria-pressed="false" data-f="Lean D">Lean D</button>
+    <button aria-pressed="false" data-f="Lean R">Lean R</button>
+    <button aria-pressed="false" data-f="Likely D">Likely D</button>
+    <button aria-pressed="false" data-f="Likely R">Likely R</button>
+    <button aria-pressed="false" data-f="called">Called</button>
+    <button aria-pressed="false" data-f="flip">Seats flipped</button>
+    <input id="q" type="search" placeholder="State, district or candidate" aria-label="Search by state, district or candidate">
+  </div>
+
+  <section id="senate" aria-label="U.S. Senate"></section>
+
+  <h2 class="chamber-h">U.S. House</h2>
 
   <section class="control" aria-label="House control">
     <h2>Race for the House</h2>
@@ -147,17 +167,6 @@ a{color:inherit}
     <span><i style="background:var(--ink);width:2px"></i>218 for a majority</span>
   </div>
 
-  <div class="filters" role="toolbar" aria-label="Filter races">
-    <button aria-pressed="true" data-f="all">All races</button>
-    <button aria-pressed="false" data-f="Toss Up">Toss ups</button>
-    <button aria-pressed="false" data-f="Lean D">Lean D</button>
-    <button aria-pressed="false" data-f="Lean R">Lean R</button>
-    <button aria-pressed="false" data-f="Likely D">Likely D</button>
-    <button aria-pressed="false" data-f="Likely R">Likely R</button>
-    <button aria-pressed="false" data-f="called">Called</button>
-    <button aria-pressed="false" data-f="flip">Seats flipped</button>
-    <input id="q" type="search" placeholder="State, district or candidate" aria-label="Search by state, district or candidate">
-  </div>
 
   <div id="groups"><div class="empty">Loading races…</div></div>
 
@@ -208,10 +217,10 @@ a{color:inherit}
     const fD = xs.filter(x=>x.flip&&x.won==='D').length, fR = xs.filter(x=>x.flip&&x.won==='R').length;
     const net = fD - fR;
     $('#tally').innerHTML = `
-      <div class="tile"><div class="k">Races called</div><div class="v">${called}<small> of ${xs.length}</small></div></div>
-      <div class="tile"><div class="k">Battlegrounds won</div><div class="v"><span class="d">${c.wD}</span><small> D </small><span class="r">${c.wR}</span><small> R</small></div></div>
-      <div class="tile"><div class="k">Seats flipped</div><div class="v"><span class="d">${fD}</span><small> R→D </small><span class="r">${fR}</span><small> D→R</small></div></div>
-      <div class="tile"><div class="k">Net change</div><div class="v">${net>0?`<span class="d">D +${net}</span>`:net<0?`<span class="r">R +${-net}</span>`:'Even'}</div></div>`;
+      <div class="tile"><div class="k">House races called</div><div class="v">${called}<small> of ${xs.length}</small></div></div>
+      <div class="tile"><div class="k">House battlegrounds won</div><div class="v"><span class="d">${c.wD}</span><small> D </small><span class="r">${c.wR}</span><small> R</small></div></div>
+      <div class="tile"><div class="k">House seats flipped</div><div class="v"><span class="d">${fD}</span><small> R→D </small><span class="r">${fR}</span><small> D→R</small></div></div>
+      <div class="tile"><div class="k">House net change</div><div class="v">${net>0?`<span class="d">D +${net}</span>`:net<0?`<span class="r">R +${-net}</span>`:'Even'}</div></div>`;
   }
 
   function raceBar(r){
@@ -223,7 +232,7 @@ a{color:inherit}
     const s = r.status==='Called' ? 'won' : (pctIn(r.reporting)>=60 ? 'lead' : 'early');
     return `<span class="rbar" role="img" aria-label="Two-party share: D ${dw}%, R ${rw}%"><i class="D ${s}" style="width:${dw}%"></i><i class="mid"></i><i class="R ${s}" style="width:${rw}%"></i></span>`;
   }
-  const who = p => p==='D'||p==='R' ? p : 'Other';
+  const who = p => p==='D'||p==='R' ? p : p==='I' ? 'Ind.' : 'Other';
   function resultCell(b,x){
     const r = x.r;
     if (!r || !r.status) return `<td class="res NONE">No results yet</td>`;
@@ -237,13 +246,14 @@ a{color:inherit}
     const tag = x.flip ? '<span class="tag">FLIP</span>' : x.wouldFlip ? '<span class="tag maybe" title="Seat changes parties if the current leader holds on">WOULD FLIP</span>' : '';
     return `<td class="res ${cls}">${html}${tag}${sub?`<span class="vv">${sub}</span>`:''}${raceBar(r)}</td>`;
   }
-  function cand(name, live, win, isInc){
+  function cand(name, live, win, isInc, ind){
     const c = live && live.name ? live : {name};
     const v = c.votes!=null&&c.votes!=='' ? `${fmt(c.votes)}${c.pct!=null&&c.pct!==''?' · '+c.pct+'%':''}` : '';
-    return `<span class="${win?'win':''}">${esc(c.name)}${isInc?' <span class="vv" style="display:inline">(inc.)</span>':''}</span>${v?`<span class="vv">${v}</span>`:''}`;
+    return `<span class="${win?'win':''}">${esc(c.name)}${ind?' <span class="vv" style="display:inline">(Ind.)</span>':''}${isInc?' <span class="vv" style="display:inline">(inc.)</span>':''}</span>${v?`<span class="vv">${v}</span>`:''}`;
   }
   // Ballotpedia page for the district, e.g. Arizona's_1st_Congressional_District, Texas'_34th_..., Alaska's_At-Large_...
   function bpURL(b){
+    if (b.chamber==='S') return 'https://ballotpedia.org/United_States_Senate_'+(b.special?'special_':'')+'election_in_'+b.state.replace(/ /g,'_')+',_2026';
     const n = parseInt(b.district,10), v = n%100, sfx = ['th','st','nd','rd'];
     const ord = isNaN(n) ? 'At-Large' : n + (sfx[(v-20)%10] || sfx[v] || sfx[0]);
     const poss = b.state + (/s$/.test(b.state) ? "'" : "'s");
@@ -251,13 +261,13 @@ a{color:inherit}
   }
   function row(b,x){
     const r = x.r || {};
-    const mp=r.marginPts, m=(mp==null||mp==='')?'':(mp>0?`<span class="d">D+${Math.abs(mp).toFixed(1)}</span>`:mp<0?`<span class="r">R+${Math.abs(mp).toFixed(1)}</span>`:'Even');
+    const mp=r.marginPts, m=(mp==null||mp==='')?'':(mp>0?`<span class="d">${b.demParty==='I'?'Ind.':'D'}+${Math.abs(mp).toFixed(1)}</span>`:mp<0?`<span class="r">R+${Math.abs(mp).toFixed(1)}</span>`:'Even');
     const mv = r.marginVotes!=null&&r.marginVotes!=='' ? `<span class="vv">${fmt(r.marginVotes)} votes</span>`:'';
-    const inc = `<span class="pill ${b.held}">${b.held==='D'?'Democratic':'Republican'}</span>`;
-    return `<tr id="${b.id}"><td><a class="dist" href="${esc(bpURL(b))}" target="_blank" rel="noopener" title="Ballotpedia: ${esc(b.state)} ${esc(b.district)}">${esc(b.id)}</a><span class="sn">${esc(b.state)}</span></td>
+    const inc = `<span class="pill ${b.held}">${b.held==='D'?'Democratic':'Republican'}</span>${b.chamber==='S'?`<span class="rt">Cook: ${esc(b.rating)}</span>`:''}`;
+    return `<tr id="${b.id}"><td>${b.chamber==='S' ? `<a class="dist" href="${esc(bpURL(b))}" target="_blank" rel="noopener" title="Ballotpedia: ${esc(b.state)} Senate">${esc(b.state)}</a><span class="sn">${b.special?'Special election':'Senate'}</span>` : `<a class="dist" href="${esc(bpURL(b))}" target="_blank" rel="noopener" title="Ballotpedia: ${esc(b.state)} ${esc(b.district)}">${esc(b.id)}</a><span class="sn">${esc(b.state)}</span>`}</td>
       <td>${inc}</td>
       ${resultCell(b,x)}
-      <td>${cand(b.dem, r.dem, x.won==='D', b.incumbent===b.dem)}</td><td>${cand(b.rep, r.rep, x.won==='R', b.incumbent===b.rep)}</td>
+      <td>${cand(b.dem, r.dem, x.won==='D'||(b.demParty==='I'&&x.won==='I'), b.incumbent===b.dem, b.demParty==='I')}</td><td>${cand(b.rep, r.rep, x.won==='R', b.incumbent===b.rep)}</td>
       <td class="num">${m}${mv}</td><td class="num"><span class="vv">${esc(r.reporting||'')}</span>${r.source?`<a href="${esc(r.source)}" target="_blank" rel="noopener">Results</a>`:''}</td></tr>`;
   }
 
@@ -272,7 +282,21 @@ a{color:inherit}
       || [b.dem,b.rep,b.incumbent].some(n=>n&&n.toLowerCase().includes(q));
   }
 
+  const ORDER = {'Toss Up':0,'Lean D':1,'Lean R':2,'Likely D':3,'Likely R':4};
+  function renderSenate(){
+    const all = BASE.senate||[];
+    const rows = all.map(b=>[b,stateOf(b)]).filter(([b,x])=>matches(b,x)).sort((a,c)=>ORDER[a[0].rating]-ORDER[c[0].rating]||a[0].state.localeCompare(c[0].state));
+    if (!rows.length){ $('#senate').innerHTML=''; return; }
+    const xs = all.map(stateOf), called = xs.filter(x=>x.won).length;
+    const fD = xs.filter(x=>x.flip&&x.won==='D').length, fR = xs.filter(x=>x.flip&&x.won==='R').length, fI = xs.filter(x=>x.flip&&x.won==='I').length;
+    const flips = fD||fR||fI ? ` · flips: ${[fD?fD+' to D':'',fR?fR+' to R':'',fI?fI+' to Ind.':''].filter(Boolean).join(', ')}` : '';
+    const head = `<thead><tr><th>State</th><th>Held by</th><th>Result</th><th>Democrat</th><th>Republican</th><th class="num">Margin</th><th class="num">Reporting</th></tr></thead>`;
+    $('#senate').innerHTML = `<section class="group"><h2>U.S. Senate <small>${all.length} key races · ${called} called${flips}</small></h2>
+      <div class="tablebox"><table>${head}<tbody>${rows.map(([b,x])=>row(b,x)).join('')}</tbody></table></div></section>`;
+  }
+
   function render(){
+    renderSenate();
     const xs = BASE.races.map(b=>stateOf(b));
     const c = houseBar(xs); tally(xs,c);
     const head = `<thead><tr><th>District</th><th>Held by</th><th>Result</th><th>Democrat</th><th>Republican</th><th class="num">Margin</th><th class="num">Reporting</th></tr></thead>`;
@@ -283,7 +307,7 @@ a{color:inherit}
       return `<section class="group" aria-label="${label}"><h2>${label} <small>${rows.length} race${rows.length>1?'s':''} · ${called} called</small></h2>
         <div class="tablebox"><table>${head}<tbody>${rows.map(([b,x])=>row(b,x)).join('')}</tbody></table></div></section>`;
     }).join('');
-    $('#groups').innerHTML = html || `<div class="empty">${filter==='flip'?'No seats have changed parties yet.':filter==='called'?'No races have been called yet.':'No races match. Clear the search or pick another filter.'}</div>`;
+    $('#groups').innerHTML = html || `<div class="empty">${filter==='flip'?'No seats have changed parties yet.':filter==='called'?'No races have been called yet.':'No House races match. Clear the search or pick another filter.'}</div>`;
   }
 
   document.addEventListener('click', e=>{
@@ -305,10 +329,10 @@ a{color:inherit}
   }
 
   async function boot(){
-    try{ const res = await fetch('baseline.json', {cache:'no-store'}); BASE = await res.json(); }
+    try{ const res = await fetch('baseline.json', {cache:'no-store'}); BASE = await res.json(); (BASE.senate||[]).forEach(s=>s.chamber='S'); }
     catch(err){ $('#groups').innerHTML = '<div class="empty">The race list couldn\'t load. Refresh the page to try again.</div>'; return; }
-    $('#scope').textContent = `${BASE.races.length} competitive races`;
-    $('#srcs').textContent = `Races: ${BASE.ratingsSource} (Likely, Lean and Toss Up). ${BASE.candidatesSource}.`;
+    $('#scope').textContent = `${(BASE.senate||[]).length} Senate · ${BASE.races.length} House races`;
+    $('#srcs').textContent = `Senate ratings: ${BASE.senateRatingsSource}. House races: ${BASE.ratingsSource} (Likely, Lean and Toss Up). ${BASE.candidatesSource}.`;
     await loadData(); render();
     const h = decodeURIComponent(location.hash.slice(1)); if (h){ const el=document.getElementById(h.toUpperCase()); if (el) el.scrollIntoView(); }
     setInterval(async ()=>{ await loadData(); render(); }, 60000);
