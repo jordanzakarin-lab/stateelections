@@ -241,7 +241,8 @@ a{color:inherit}
     if (x.won){ cls=`${x.won==='D'||x.won==='R'?x.won:'I'}-WIN`; html=`${who(x.won)} win`; sub = r.calledBy?`Called by ${esc(r.calledBy)}`:''; }
     else if (x.lead){ cls=`${x.lead==='D'||x.lead==='R'?x.lead:'I'}-LEAD`; html=`${who(x.lead)} leads`; sub=`Not called · ${pin}`; }
     else if (r.status==='Counting'){ html='Too early to call'; sub=[r.leader?`${who(r.leader)} ahead`:'Counting', pin].filter(Boolean).join(' · '); }
-    else if (r.status==='Runoff'||r.status==='RCV'){ html='Ranked-choice count'; sub=r.leader?`${who(r.leader)} ahead in first round`:''; }
+    else if (r.status==='Runoff'){ html='Headed to runoff'; sub=r.leader?`${who(r.leader)} finished first`:''; }
+    else if (r.status==='RCV'){ html='Ranked-choice count'; sub=r.leader?`${who(r.leader)} ahead in first round`:''; }
     else html = esc(r.status);
     const tag = x.flip ? '<span class="tag">FLIP</span>' : x.wouldFlip ? '<span class="tag maybe" title="Seat changes parties if the current leader holds on">WOULD FLIP</span>' : '';
     return `<td class="res ${cls}">${html}${tag}${sub?`<span class="vv">${sub}</span>`:''}${raceBar(r)}</td>`;
