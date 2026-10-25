@@ -1067,6 +1067,19 @@
  ],
  "senate": [
   {
+   "id": "AK-SEN",
+   "st": "AK",
+   "state": "Alaska",
+   "rating": "Toss Up",
+   "held": "R",
+   "incumbent": "Dan Sullivan",
+   "open": false,
+   "dem": "Mary Peltola",
+   "rep": "Dan Sullivan",
+   "demParty": "D",
+   "special": false
+  },
+  {
    "id": "GA-SEN",
    "st": "GA",
    "state": "Georgia",
